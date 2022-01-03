@@ -4,7 +4,7 @@ import theme from '../theme'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider resetCSS theme={theme}>
+    <ChakraProvider theme={theme}>
       <ColorModeProvider
         options={{
           useSystemColorMode: true,
