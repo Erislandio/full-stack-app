@@ -10,7 +10,7 @@ export class Post {
     id!: number;
 
     @Field(() => String)
-    @Property({ type: "date" })
+    @Property({ type: "date", onCreate: () => new Date() })
     createdAt = new Date();
 
     @Field(() => String)

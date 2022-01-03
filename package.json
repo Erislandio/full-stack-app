@@ -12,7 +12,8 @@
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js",
     "start2": "ts-node src/index.ts",
-    "dev2": "nodemon --exec ts-node src/index.ts"
+    "dev2": "nodemon --exec ts-node src/index.ts",
+    "migrations": "npx mikro-orm migration:create"
   },
   "keywords": [],
   "devDependencies": {
@@ -44,6 +45,7 @@
     "express-session": "^1.17.1",
     "graphql": "^15.3.0",
     "ioredis": "^4.17.3",
+    "mikro-orm": "^4.5.10",
     "nodemailer": "^6.4.11",
     "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
