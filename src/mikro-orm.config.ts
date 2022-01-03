@@ -2,11 +2,12 @@ import { __prod__ } from './configs/constants';
 import { Post } from './entities/Post';
 import { join as pathJoin } from 'path';
 import { MikroORM } from '@mikro-orm/core';
+import { User } from './entities/User';
 
 // instance
 export default {
     dbName: 'lireddit',
-    entities: [Post],
+    entities: [Post, User],
     user: 'eris',
     password: 'root',
     debug: !__prod__,
