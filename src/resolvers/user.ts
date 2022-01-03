@@ -1,7 +1,7 @@
 
 import { User } from "../entities/User";
 import { MyContext } from "../types";
-import { InputType, Resolver, Ctx, Mutation, Arg, Field, ObjectType } from "type-graphql";
+import { InputType, Resolver, Ctx, Mutation, Arg, Field, ObjectType, Query } from "type-graphql";
 import argon2 from 'argon2';
 
 @ObjectType()
@@ -70,10 +70,24 @@ export class UserResolver {
 
         await em.persistAndFlush(user)
         return {
-            user,
-            errors: []
+            user
         };
     }
+
+    @Query(() => User, { nullable: true })
+    async me(@Ctx() { req, em }: MyContext) {
+
+        const userId = req.session.userId;
+
+        if (userId) {
+            const user = await em.findOne(User, { id: userId })
+            return user;
+        }
+
+        return null;
+    }
+
+
 
     @Mutation(() => UserResponse)
     async login(@Arg('input') { username, password }: UsernamePasswordInput, @Ctx() { em, req }: MyContext): Promise<UserResponse> {

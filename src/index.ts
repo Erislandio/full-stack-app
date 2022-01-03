@@ -8,7 +8,7 @@ import { PostResolver } from "./resolvers/post";
 import { UserResolver } from './resolvers/user';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
-import redis from 'redis';
+import Redis from 'ioredis';
 import { __prod__ } from './configs/constants';
 
 async function main() {
@@ -17,21 +17,22 @@ async function main() {
 
     const app = express();
     const RedisStore = connectRedis(session);
-    const redisClient = redis.createClient();
+    const redis = new Redis();
 
     app.use(
         session({
             name: 'qid',
             store: new RedisStore({
-                disableTTL: true,
-                client: redisClient,
+                client: redis,
                 disableTouch: true
             }),
             cookie: {
                 maxAge: 1000 * 60 * 60 * 24 * 365 * 1,
                 httpOnly: true,
+                sameSite: 'lax',
                 secure: __prod__,
             },
+            saveUninitialized: false,
             secret: 'root',
             resave: false,
         })
