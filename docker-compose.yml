@@ -9,6 +9,8 @@ services:
       POSTGRES_USER: eris
       POSTGRES_PASSWORD: root
       POSTGRES_DB: "lireddit"
+    ports:
+      - 5432:5432
 
   adminer:
     image: adminer
